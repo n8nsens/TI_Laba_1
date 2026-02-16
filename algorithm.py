@@ -40,3 +40,39 @@ def process_decimation(text, key_val, mode='encrypt'):
             continue
             
     return "".join(result)
+
+def process_vigenere(text, key_val, mode='encrypt'):
+    alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+    n = len(alphabet)
+    key_chars = [c.lower() for c in key_val if c.lower() in alphabet]
+    
+    if not key_chars:
+        error_msg = "Error: Key must contain Russian letters"
+        print(error_msg)
+        return error_msg
+    
+    result = []
+    key_index = 0 
+    for char in text:
+        is_upper = char.isupper()
+        low = char.lower()
+        
+        if low in alphabet:
+            x = alphabet.index(low)
+            k = alphabet.index(key_chars[key_index % len(key_chars)])
+            if mode == 'encrypt':
+                new_index = (x + k) % n
+            else:
+                new_index = (x - k + n) % n
+                
+            new_char = alphabet[new_index]
+            result.append(new_char.upper() if is_upper else new_char)
+        
+            key_index += 1
+            
+        elif char == " ":
+            result.append(char)
+        else:
+            continue 
+            
+    return "".join(result)
