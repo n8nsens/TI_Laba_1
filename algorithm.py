@@ -47,7 +47,7 @@ def process_vigenere(text, key_val, mode='encrypt'):
     key_chars = [c.lower() for c in key_val if c.lower() in alphabet]
     
     if not key_chars:
-        error_msg = "Error: Key must contain Russian letters"
+        error_msg = "Ошибка: Ключ должен содеражать русские буквы"
         print(error_msg)
         return error_msg
     
